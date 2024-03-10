@@ -21,8 +21,12 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore DotNetCoreWebAPI/DotNetCoreWebAPI.csproj
+      working-directory: DotNetCoreWebAPI
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build DotNetCoreWebAPI/DotNetCoreWebAPI.csproj --no-restore
+      working-directory: DotNetCoreWebAPI
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test DotNetCoreWebAPI.Tests/DotNetCoreWebAPI.Tests.csproj --no-build --verbosity normal
+      working-directory: DotNetCoreWebAPI
+
