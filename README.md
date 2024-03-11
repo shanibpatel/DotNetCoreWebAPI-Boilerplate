@@ -36,6 +36,10 @@ dotnet run
 
 5. Access the API endpoints locally using a tool like Postman or curl.
 
+## DB Structure
+
+https://dbdiagram.io/d/Dot-Net-Web-API-65ed8017b1f3d4062c8bd8ea
+
 ## Tools Used
 
 1. MS SQL Server
