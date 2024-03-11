@@ -12,6 +12,7 @@ builder.Services.AddDbContext<WebAPIDBContext>(options => options.UseSqlServer(
 // Add services to the container.
 builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
 
 builder.Services.AddAutoMapper(typeof(MapperConfig));
 builder.Services.AddControllers();

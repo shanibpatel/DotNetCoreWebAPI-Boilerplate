@@ -6,27 +6,27 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DotNetCoreWebAPI.Services
 {
-    public class UserService : IUserService
+    public class CustomerService : ICustomerService
     {
         private readonly WebAPIDBContext _context;
         private readonly IMapper _mapper;
 
-        public UserService(WebAPIDBContext context, IMapper mapper)
+        public CustomerService(WebAPIDBContext context, IMapper mapper)
         {
             _context = context;
             this._mapper = mapper;
         }
 
         /// <summary>
-        /// Get list of all Users
+        /// Get list of all Customers
         /// </summary>
-        /// <returns>List of Users</returns>
-        public List<Users> GetUsersList()
+        /// <returns>List of Customers</returns>
+        public List<Customer> GetCustomersList()
         {
-            List<Users> Users;
+            List<Customer> Customers;
             try
             {
-                Users = _context.Set<Users>()
+                Customers = _context.Set<Customer>()
                     .Include(u => u.Clients)
                     .Where(c => c.IsActive == true)
                     .ToList();
@@ -35,53 +35,54 @@ namespace DotNetCoreWebAPI.Services
             {
                 throw;
             }
-            return Users;
+            return Customers;
         }
 
         /// <summary>
-        /// Get User details by User id
+        /// Get Customer details by Customer id
         /// </summary>
-        /// <param name="UserId">The id of the User</param>
-        /// <returns>The User details</returns>
-        public Users GetUserDetailsById(int UserId)
+        /// <param name="CustomerId">The id of the Customer</param>
+        /// <returns>The Customer details</returns>
+        public Customer GetCustomerDetailsById(int CustomerId)
         {
-            Users User;
+            Customer Customer;
             try
             {
-                User = _context.Find<Users>(UserId);
+                Customer = _context.Find<Customer>(CustomerId);
             }
             catch (Exception)
             {
                 throw;
             }
-            return User;
+            return Customer;
         }
 
         /// <summary>
-        /// Add or update a User
+        /// Add or update a Customer
         /// </summary>
-        /// <param name="UserModel">The User model to be saved</param>
+        /// <param name="CustomerModel">The Customer model to be saved</param>
         /// <returns>A response indicating the result of the operation</returns>
-        public ResponseModel SaveUser(UserSaveDto userSaveDto)
+        public ResponseModel SaveCustomer(CustomerSaveDto CustomerSaveDto)
         {
             ResponseModel model = new ResponseModel();
             try
             {
-                Users existingUser = GetUserDetailsById(userSaveDto.UserId);
-                if (existingUser != null)
+                Customer existingCustomer = GetCustomerDetailsById(CustomerSaveDto.CustomerId);
+                if (existingCustomer != null)
                 {
-                    // Update existing User
-                    _mapper.Map(userSaveDto, existingUser);
 
-                    _context.Update(existingUser);
-                    model.Message = "User updated successfully.";
+                    // Update existing Customer
+                    _mapper.Map(CustomerSaveDto, existingCustomer);
+
+                    _context.Update(existingCustomer);
+                    model.Message = "Customer updated successfully.";
                 }
                 else
                 {
-                    // Add new User
-                    var user = _mapper.Map<Users>(userSaveDto);
-                    _context.Update<Users>(user);
-                    model.Message = "User added successfully.";
+                    // Add new Customer
+                    var Customer = _mapper.Map<Customer>(CustomerSaveDto);
+                    _context.Update<Customer>(Customer);
+                    model.Message = "Customer added successfully.";
                 }
 
                 _context.SaveChanges();
@@ -96,29 +97,29 @@ namespace DotNetCoreWebAPI.Services
         }
 
         /// <summary>
-        /// Delete a User
+        /// Delete a Customer
         /// </summary>
-        /// <param name="UserId">The id of the User to be deleted</param>
+        /// <param name="CustomerId">The id of the Customer to be deleted</param>
         /// <returns>A response indicating the result of the operation</returns>
 
-        ///Method to Delete the User
-        //public ResponseModel DeleteUser(int UserId)
+        ///Method to Delete the Customer
+        //public ResponseModel DeleteCustomer(int CustomerId)
         //{
         //    ResponseModel model = new ResponseModel();
         //    try
         //    {
-        //        Users UserToDelete = GetUserDetailsById(UserId);
-        //        if (UserToDelete != null)
+        //        Customers CustomerToDelete = GetCustomerDetailsById(CustomerId);
+        //        if (CustomerToDelete != null)
         //        {
-        //            _context.Remove(UserToDelete);
+        //            _context.Remove(CustomerToDelete);
         //            _context.SaveChanges();
         //            model.IsSuccess = true;
-        //            model.Message = "User deleted successfully.";
+        //            model.Message = "Customer deleted successfully.";
         //        }
         //        else
         //        {
         //            model.IsSuccess = false;
-        //            model.Message = "User not found.";
+        //            model.Message = "Customer not found.";
         //        }
         //    }
         //    catch (Exception ex)
@@ -129,24 +130,24 @@ namespace DotNetCoreWebAPI.Services
         //    return model;
         //}
 
-        public ResponseModel DeleteUser(int UserId)
+        public ResponseModel DeleteCustomer(int CustomerId)
         {
             ResponseModel model = new ResponseModel();
             try
             {
-                Users UserToUpdate = GetUserDetailsById(UserId);
-                if (UserToUpdate != null)
+                Customer CustomerToUpdate = GetCustomerDetailsById(CustomerId);
+                if (CustomerToUpdate != null)
                 {
-                    // Instead of removing the User, update IsActive flag to false
-                    UserToUpdate.IsActive = false;
+                    // Instead of removing the Customer, update IsActive flag to false
+                    CustomerToUpdate.IsActive = false;
                     _context.SaveChanges();
                     model.IsSuccess = true;
-                    model.Message = "User deactivated successfully.";
+                    model.Message = "Customer deactivated successfully.";
                 }
                 else
                 {
                     model.IsSuccess = false;
-                    model.Message = "User not found.";
+                    model.Message = "Customer not found.";
                 }
             }
             catch (Exception ex)

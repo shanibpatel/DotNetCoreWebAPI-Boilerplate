@@ -10,6 +10,9 @@ namespace DotNetCoreWebAPI.Configuration
         {
             CreateMap<UserSaveDto, Users>()
                 .ReverseMap();
+
+            CreateMap<CustomerSaveDto, Customer>()
+                .ReverseMap();
         }
     }
 }
