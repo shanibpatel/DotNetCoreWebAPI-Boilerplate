@@ -4,9 +4,9 @@ namespace DotNetCoreWebAPI.Data
 {
     public class WebAPIDBContext : DbContext
     {
-        public WebAPIDBContext(DbContextOptions options) : base(options) 
+        public WebAPIDBContext(DbContextOptions options) : base(options)
         {
-        
+
         }
 
         DbSet<Clients> Clients { get; set; }
