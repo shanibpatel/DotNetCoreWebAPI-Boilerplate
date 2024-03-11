@@ -10,5 +10,7 @@ namespace DotNetCoreWebAPI.Data
         }
 
         DbSet<Clients> Clients { get; set; }
+
+        DbSet<Users> Users { get; set; }
     }
 }

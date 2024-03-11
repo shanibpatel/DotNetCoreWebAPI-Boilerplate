@@ -1,6 +1,5 @@
 ﻿using DotNetCoreWebAPI.Data;
 using DotNetCoreWebAPI.ViewModels;
-using Microsoft.EntityFrameworkCore;
 
 namespace DotNetCoreWebAPI.Services
 {

@@ -1,4 +1,4 @@
-﻿using DotNetCoreWebAPI.Data;
+﻿using DotNetCoreWebAPI.Models;
 using DotNetCoreWebAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,29 +6,29 @@ namespace DotNetCoreWebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClientController : ControllerBase
+    public class UserController : ControllerBase
     {
-        private readonly IClientService _clientService;
+        private readonly IUserService _UserService;
 
-        public ClientController(IClientService clientService)
+        public UserController(IUserService UserService)
         {
-            _clientService = clientService;
+            _UserService = UserService;
         }
 
         /// <summary>
-        /// Get all clients
+        /// Get all Users
         /// </summary>
-        /// <returns>A list of clients</returns>
+        /// <returns>A list of Users</returns>
         [HttpGet]
         [Route("[action]")]
-        public IActionResult GetClients()
+        public IActionResult GetUsers()
         {
             try
             {
-                var clients = _clientService.GetClientsList();
-                if (clients == null)
+                var Users = _UserService.GetUsersList();
+                if (Users == null)
                     return NotFound();
-                return Ok(clients);
+                return Ok(Users);
             }
             catch (Exception)
             {
@@ -37,20 +37,20 @@ namespace DotNetCoreWebAPI.Controllers
         }
 
         /// <summary>
-        /// Get client details by id
+        /// Get User details by id
         /// </summary>
-        /// <param name="id">The id of the client</param>
-        /// <returns>The client details</returns>
+        /// <param name="id">The id of the User</param>
+        /// <returns>The User details</returns>
         [HttpGet]
         [Route("[action]/{id}")]
-        public IActionResult GetClientById(int id)
+        public IActionResult GetUserById(int id)
         {
             try
             {
-                var client = _clientService.GetClientDetailsById(id);
-                if (client == null)
+                var User = _UserService.GetUserDetailsById(id);
+                if (User == null)
                     return NotFound();
-                return Ok(client);
+                return Ok(User);
             }
             catch (Exception)
             {
@@ -59,17 +59,17 @@ namespace DotNetCoreWebAPI.Controllers
         }
 
         /// <summary>
-        /// Save client
+        /// Save User
         /// </summary>
-        /// <param name="clientModel">The client model to save</param>
+        /// <param name="UserModel">The User model to save</param>
         /// <returns>A response indicating the result of the operation</returns>
         [HttpPost]
         [Route("[action]")]
-        public IActionResult SaveClient(Clients clientModel)
+        public IActionResult SaveUser(UserSaveDto UserModel)
         {
             try
             {
-                var model = _clientService.SaveClient(clientModel);
+                var model = _UserService.SaveUser(UserModel);
                 return Ok(model);
             }
             catch (Exception)
@@ -79,17 +79,17 @@ namespace DotNetCoreWebAPI.Controllers
         }
 
         /// <summary>
-        /// Delete client
+        /// Delete User
         /// </summary>
-        /// <param name="id">The id of the client to delete</param>
+        /// <param name="id">The id of the User to delete</param>
         /// <returns>A response indicating the result of the operation</returns>
         [HttpDelete]
         [Route("[action]")]
-        public IActionResult DeleteClient(int id)
+        public IActionResult DeleteUser(int id)
         {
             try
             {
-                var model = _clientService.DeleteClient(id);
+                var model = _UserService.DeleteUser(id);
                 return Ok(model);
             }
             catch (Exception)
