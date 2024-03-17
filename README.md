@@ -38,7 +38,10 @@ dotnet run
 
 ## DB Structure
 
-https://dbdiagram.io/d/Dot-Net-Web-API-65ed8017b1f3d4062c8bd8ea
+![image](https://github.com/shanibpatel/DotNetCoreWebAPI-Boilerplate/assets/24813527/bac641ec-57f8-4fdc-86af-1cd5dd7e906f)
+
+
+https://dbdiagram.io/d/Dot-Net-Web-API-V1-0-65f6e71dae072629ce362d42
 
 ## Tools Used
 
